@@ -3,7 +3,7 @@
 </h3>
 
 # Text Predictor
-Character-level **RNN** (Recurrent Neural Net) **LSTM** (Long Short-Term Memory) implemented in Python 2.7/TensorFlow in order to predict a text based on a given dataset. 
+Character-level **RNN** (Recurrent Neural Net) **LSTM** (Long Short-Term Memory) ported to python 3.x from the original implementation (Python 2.7) / TensorFlow in order to predict a text based on a given dataset. 
 
 <br>
 
