@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 
 # Args
 if len(sys.argv) != 2:
-    print "Please select a dataset."
-    print "Usage: python text_predictor.py <dataset>"
-    print "Available datasets: kanye, shakespeare, wikipedia, reuters, hackernews, war_and_peace, sherlock"
+    print("Please select a dataset.")
+    print("Usage: python text_predictor.py <dataset>")
+    print("Available datasets: kanye, shakespeare, wikipedia, reuters, hackernews, war_and_peace, sherlock")
     exit(1)
 else:
     dataset = sys.argv[1]
@@ -76,22 +76,23 @@ def rnn():
                     smooth_losses.append(smooth_loss)
                     temp_losses = []
                     plot(smooth_losses, "iterations (thousands)", "loss")
-                    print('{{"metric": "iteration", "value": {}}}'.format(iteration))
-                    print('{{"metric": "epoch", "value": {}}}'.format(epoch))
-                    print('{{"metric": "loss", "value": {}}}'.format(smooth_loss))
+                    print(('{{"metric": "iteration", "value": {}}}'.format(iteration)))
+                    print(('{{"metric": "epoch", "value": {}}}'.format(epoch)))
+                    print(('{{"metric": "loss", "value": {}}}'.format(smooth_loss)))
             epoch += 1
 
 def sample_text(sess, data_provider, iteration):
     model = RNNModel(data_provider.vocabulary_size, batch_size=1, sequence_length=1, hidden_layer_size=HIDDEN_LAYER_SIZE, cells_size=CELLS_SIZE, training=False)
     text = model.sample(sess, data_provider.chars, data_provider.vocabulary, TEXT_SAMPLE_LENGTH).encode("utf-8")
-    output = open(output_file, "a")
-    output.write("Iteration: " + str(iteration) + "\n")
-    output.write(text + "\n")
-    output.write("\n")
+    # print(text)
+    output = open(output_file, "ab")
+    output.write("Iteration: ".encode("utf-8") + str(iteration).encode("utf-8") + "\n".encode("utf-8"))
+    output.write(text + "\n".encode("utf-8"))
+    output.write("\n".encode("utf-8"))
     output.close()
 
 def plot(data, x_label, y_label):
-    plt.plot(range(len(data)), data)
+    plt.plot(list(range(len(data))), data)
     plt.title(dataset)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
@@ -100,11 +101,11 @@ def plot(data, x_label, y_label):
 
 
 if __name__ == '__main__':
-    print "Selected dataset: " + str(dataset)
-    print "Batch size: " + str(BATCH_SIZE)
-    print "Sequence length: " + str(SEQUENCE_LENGTH)
-    print "Learning rate: " + str(LEARNING_RATE)
-    print "Decay rate: " + str(DECAY_RATE)
-    print "Hidden layer size: " + str(HIDDEN_LAYER_SIZE)
-    print "Cells size: " + str(CELLS_SIZE)
+    print("Selected dataset: " + str(dataset))
+    print("Batch size: " + str(BATCH_SIZE))
+    print("Sequence length: " + str(SEQUENCE_LENGTH))
+    print("Learning rate: " + str(LEARNING_RATE))
+    print("Decay rate: " + str(DECAY_RATE))
+    print("Hidden layer size: " + str(HIDDEN_LAYER_SIZE))
+    print("Cells size: " + str(CELLS_SIZE))
     rnn()
