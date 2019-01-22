@@ -58,7 +58,7 @@ class RNNModel:
 
         with tf.variable_scope("optimizer", reuse=tf.AUTO_REUSE):
             optimizer = tf.train.AdamOptimizer(self.learning_rate)
-            self.train_op = optimizer.apply_gradients(zip(grads, trainable_vars))
+            self.train_op = optimizer.apply_gradients(list(zip(grads, trainable_vars)))
 
         tf.summary.histogram("logits", self.logits)
         tf.summary.histogram("probabilitiess", self.probabilities)
@@ -83,21 +83,3 @@ class RNNModel:
             text += predicted
             char = predicted
         return text
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
